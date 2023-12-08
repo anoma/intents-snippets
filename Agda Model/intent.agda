@@ -12,17 +12,16 @@ module intent where
      and batch-prodcessing functions as postulates. The only non-standard
      terms used are:
 
-     a) is-embed signifying an
-     "injection" into a type (see HoTT Book 4.6)
+     a) is-embed signifying an "injection" into a type (see HoTT Book 4.6)
 
-     b) _×fun_ specifying product morphism argument-wise with rule:
+     b) _×fun_ specifying product morphism argument-wise with typing:
 
-     f : A → B, g : C → D ⊢ f ×fun g : A × C → B × D
+     (f : A → B) (g : C → D) ⊢ f ×fun g : A × C → B × D
 
-     c) Σ specifying the dependent product type.
+     c) Σ specifying the dependent sum type.
 
-     All notation and terms can be canonically associated with the HoTT
-     Book notation. -}
+     All notation and terms can be canonically associated with the HoTT Book
+     notation. -}
 
   -- We postulate an interval of real numbers [0 , 1]
   postulate Interval : Type lzero
@@ -33,9 +32,9 @@ module intent where
   data Error : Type lzero where
     not-satisfied : Error
 
-  -- Intent then takes two states and says what preference is there in the
-  -- transaction or if it is not satisfied [11]
-  Intent = 𝑺 × 𝑺 → Error + Interval
+  -- Intent then - for a fixed 𝑺 - takes a state transition function  and says
+  -- what preference is there in a transaction or if it is not satisfied [11]
+  Intent = (𝑺 → 𝑺) × (𝑺 × 𝑺 → Error + Interval)
 
   -- Batch is just a collection of intents current implementation supports
   -- infinite subsets. Practically they are finite. A batch is a type with
